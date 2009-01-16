@@ -20,8 +20,8 @@ module Thomas
       url     = url(congress, id)
       return nil unless url
       doc     = Hpricot(open(url))
+      return nil if (doc / '#content').inner_html.to_s.include?('ERROR')
       result  = new(doc)
-      puts result.title.inspect
       if result.title.blank?
         return nil
       else

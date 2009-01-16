@@ -51,6 +51,11 @@ Feature:  I want to get information about a House Resolution by its numeric ID.
     When I query for its metadata
     Then it should be nil
 
+  Scenario:  I specify a congress ID outside the threshold of the dataset
+    Given I have specified congress 44, bill HR1
+    When I query for its metadata
+    Then it should be nil
+
 
     
 
