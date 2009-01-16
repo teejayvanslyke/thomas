@@ -1,14 +1,15 @@
 require 'thomas/version'
 
-AUTHOR = 'FIXME full name'  # can also be an array of Authors
-EMAIL = "FIXME email"
-DESCRIPTION = "description of gem"
+AUTHOR = 'T.J. VanSlyke'  # can also be an array of Authors
+EMAIL = "teejay.vanslyke@gmail.com"
+DESCRIPTION = "API to thomas.loc.gov"
 GEM_NAME = 'thomas' # what ppl will type to install your gem
 RUBYFORGE_PROJECT = 'thomas' # The unix name for your project
 HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
 DOWNLOAD_PATH = "http://rubyforge.org/projects/#{RUBYFORGE_PROJECT}"
 EXTRA_DEPENDENCIES = [
-#  ['activesupport', '>= 1.3.1']
+   ['activesupport', '>= 1.3.1'],
+   ['hpricot',       '>= 0.6']
 ]    # An array of rubygem dependencies [name, version]
 
 @config_file = "~/.rubyforge/user-config.yml"
