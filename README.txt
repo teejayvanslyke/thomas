@@ -1,32 +1,32 @@
 = thomas
 
-* FIX (url)
-
 == DESCRIPTION:
 
-FIX (describe your package)
+Screen-scraping API to thomas.loc.gov.  Currently only supports accessing HR and HE bills.
 
 == FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+* Access HR and HE congress bill metadata.
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+    # congress, bill ID
+    Thomas::Bill.find(111, 'HR122')
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* ActiveSupport
+* Hpricot
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+You could probably pull this from gems.github.com if you try.
 
 == LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2009 FIXME full name
+Copyright (c) 2009 T.J. VanSlyke
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
