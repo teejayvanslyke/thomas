@@ -1,12 +1,17 @@
 require 'spec/expectations'
 require File.dirname(__FILE__) + '/../../lib/thomas'
 
-Given /^I have specified the ID (.*)$/ do |id|
-  @id = id
+Given /^I have specified congress (.*), bill (.*)$/ do |congress, bill|
+  @congress = congress
+  @bill     = bill
 end
 
 When /^I query for its metadata$/ do
-  @result = Thomas::Bill.find(@id)
+  @result = Thomas::Bill.find(@congress, @bill)
+end
+
+Then /^it should be nil$/ do
+  @result.should be_nil
 end
 
 Then /^its title is '(.*)'$/ do |title|

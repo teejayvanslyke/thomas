@@ -8,20 +8,25 @@ module Thomas
 
   class Bill
 
-    def url(id)
+    def self.url(congress, id)
       id[/(HR|HE)([0-9]+)/]
-      prefix     = $1
-      puts prefix
-      id_for_url = ( '0' * (4 - $2.length) ) + $2
-      return "http://thomas.loc.gov/cgi-bin/bdquery/z?d111:#{prefix}#{id_for_url}:@@@P"
+      return nil if congress.to_s.length > 3
+      congress_for_url = ( '0' * (3 - congress.to_s.length) ) + congress
+      bill_for_url     = $1 + ( '0' * (5 - $2.length) ) + $2
+      return "http://thomas.loc.gov/cgi-bin/bdquery/z?d#{congress_for_url}:#{bill_for_url}:@@@P"
     end
 
-    def self.find(id)
-      new(id)
-    end
-
-    def initialize(id)
-      @doc = Hpricot(open(url(id)))
+    def self.find(congress, id)
+      url     = url(congress, id)
+      return nil unless url
+      doc     = Hpricot(open(url))
+      result  = new(doc)
+      puts result.title.inspect
+      if result.title.blank?
+        return nil
+      else
+        return result
+      end
     end
 
     def title 
@@ -47,6 +52,13 @@ module Thomas
       return [] unless items
       items.map {|e| e.inner_html.to_s}
     end
+
+    private 
+
+    def initialize(doc)
+      @doc = doc
+    end
+
 
   end
 
