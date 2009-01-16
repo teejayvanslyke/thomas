@@ -9,9 +9,11 @@ module Thomas
   class Bill
 
     def url(id)
-      id[/HR([0-9]+)/]
-      id_for_url = ( '0' * (4 - $1.length) ) + $1
-      return "http://thomas.loc.gov/cgi-bin/bdquery/z?d111:HR#{id_for_url}:@@@P"
+      id[/(HR|HE)([0-9]+)/]
+      prefix     = $1
+      puts prefix
+      id_for_url = ( '0' * (4 - $2.length) ) + $2
+      return "http://thomas.loc.gov/cgi-bin/bdquery/z?d111:#{prefix}#{id_for_url}:@@@P"
     end
 
     def self.find(id)
@@ -37,7 +39,13 @@ module Thomas
     end
 
     def cosponsors 
-      []
+      title = @doc.at("a[@name='cosponsors']")
+      return [] unless title
+      list = title.siblings_at(2).first
+      return [] unless list 
+      items = (list / 'a')
+      return [] unless items
+      items.map {|e| e.inner_html.to_s}
     end
 
   end

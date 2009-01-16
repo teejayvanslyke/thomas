@@ -25,3 +25,11 @@ Then /^it has no cosponsors$/ do
   @result.cosponsors.should be_empty
 end
 
+Then /^it has ([0-9]+) cosponsors$/ do |count|
+  @result.cosponsors.size.should == count.to_i
+end
+
+Then /^'(.*)' is a cosponsor$/ do |name|
+  @result.cosponsors.should include(name)
+end
+
