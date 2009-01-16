@@ -3,6 +3,8 @@ Feature:  I want to get information about a House Resolution by its numeric ID.
     Given I have specified congress 111, bill HR101
     When I query for its metadata
     Then its title is 'To amend the Internal Revenue Code of 1986 to allow all individuals, whether or not first-time homebuyers, a refundable income tax credit for the purchase of a residence during 2009 or 2010.'
+    And it belongs to congress 111
+    And its ID is HR101
     And its sponsor is 'Rep Dreier, David'
     And its introduction date is 1/6/2009
     And it has no cosponsors

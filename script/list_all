@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+require File.dirname(__FILE__) + '/../lib/thomas'
+
+(94..111).each do |congress|
+  index = 1
+  begin
+    bill = Thomas::Bill.find(congress, "HR#{index}")
+    puts "#{bill.congress}:#{bill.id} #{bill.title}"
+    index += 1
+  end while bill
+end

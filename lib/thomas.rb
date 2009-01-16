@@ -1,17 +1,24 @@
 $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
+require 'rubygems'
+gem     'hpricot'
 require 'hpricot'
+
+gem     'activesupport'
+require 'activesupport'
 require 'open-uri'
 
 module Thomas
 
   class Bill
 
+    attr_reader :congress, :id
+
     def self.url(congress, id)
       id[/(HR|HE)([0-9]+)/]
       return nil if congress.to_s.length > 3
-      congress_for_url = ( '0' * (3 - congress.to_s.length) ) + congress
+      congress_for_url = ( '0' * (3 - congress.to_s.length) ) + congress.to_s
       bill_for_url     = $1 + ( '0' * (5 - $2.length) ) + $2
       return "http://thomas.loc.gov/cgi-bin/bdquery/z?d#{congress_for_url}:#{bill_for_url}:@@@P"
     end
@@ -21,7 +28,7 @@ module Thomas
       return nil unless url
       doc     = Hpricot(open(url))
       return nil if (doc / '#content').inner_html.to_s.include?('ERROR')
-      result  = new(doc)
+      result  = new(congress, id, doc)
       if result.title.blank?
         return nil
       else
@@ -55,8 +62,10 @@ module Thomas
 
     private 
 
-    def initialize(doc)
-      @doc = doc
+    def initialize(congress, id, doc)
+      @congress = congress.to_i
+      @id       = id
+      @doc      = doc
     end
 
 

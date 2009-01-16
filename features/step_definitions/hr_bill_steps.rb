@@ -22,6 +22,14 @@ Then /^its sponsor is '(.*)'$/ do |sponsor|
   @result.sponsor.should == sponsor
 end
 
+Then /^it belongs to congress (.*)$/ do |congress|
+  @result.congress.should == congress.to_i
+end
+
+Then /^its ID is (.*)$/ do |id|
+  @result.id.should == id
+end
+
 Then /^its introduction date is (.*)$/ do |date|
   @result.introduced_on.should == Date.parse(date)
 end
